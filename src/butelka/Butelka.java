@@ -84,9 +84,14 @@ public class Butelka {
             butelka[i] = new Butelka(zawartosc, pojemnosc);
         }
         System.out.println("Co chcesz zrobić? (wlać/wylać/przelać)");
+        scanner.nextLine();
         String funkcja = scanner.nextLine();
         switch (funkcja){
             case "wlać":
+                System.out.println("Do której butelki");
+                int nrButelki = scanner.nextInt();
+                System.out.println("Ile chcesz wlać?");
+                double volume = scanner.nextDouble();
                 System.out.println("Wlać");
                 break;
             case "wylać":
