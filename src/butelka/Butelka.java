@@ -39,6 +39,7 @@ public class Butelka {
             System.out.println("Chcesz za dużo wylać");
         }
     }
+
     void przelej(double ilosc, Butelka gdzie) {
         if (ilosc <= gdzie.getMiejsce() && ilosc <= this.zawartosc) {
             this.wylej(ilosc);
@@ -83,28 +84,45 @@ public class Butelka {
 
             butelka[i] = new Butelka(zawartosc, pojemnosc);
         }
-        System.out.println("Co chcesz zrobić? (wlać/wylać/przelać)");
-        scanner.nextLine();
-        String funkcja = scanner.nextLine();
-        switch (funkcja){
-            case "wlać":
-                System.out.println("Do której butelki");
-                int nrButelki = scanner.nextInt();
-                System.out.println("Ile chcesz wlać?");
-                double volume = scanner.nextDouble();
-                System.out.println("Wlać");
-                break;
-            case "wylać":
-                System.out.println("Wylać");
-                break;
-            case "przelać":
-                System.out.println("Przelać");
-                break;
-            default:
-                System.out.println("Coś nie pykło");
-        }
-
+        String funkcja;
+        do {
+            System.out.println("Co chcesz zrobić? (wlać/wylać/przelać)");
+            scanner.nextLine();
+            funkcja = scanner.nextLine();
+            switch (funkcja) {
+                case "wlać":
+                    System.out.println("Do której butelki");
+                    int nrButelkiUzytkownikaWlac = scanner.nextInt();
+                    System.out.println("Ile chcesz wlać?");
+                    double volumeWlac = scanner.nextDouble();
+                    int nrButelkiWlac = nrButelkiUzytkownikaWlac - 1;
+                    butelka[nrButelkiWlac].wlej(volumeWlac);
+                    System.out.println("Zawartość butelki numer " + nrButelkiUzytkownikaWlac + " wynosi: " + butelka[nrButelkiWlac].getZawartosc());
+                    break;
+                case "wylać":
+                    System.out.println("Z której butelki");
+                    int nrButelkiUzytkownikaWylac = scanner.nextInt();
+                    System.out.println("Ile chcesz wylać?");
+                    double volumeWylac = scanner.nextDouble();
+                    int nrButelkiWylac = nrButelkiUzytkownikaWylac - 1;
+                    butelka[nrButelkiWylac].wylej(volumeWylac);
+                    System.out.println("Zawartość butelki numer " + nrButelkiUzytkownikaWylac + " wynosi: " + butelka[nrButelkiWylac].getZawartosc());
+                    break;
+                case "przelać":
+                    System.out.println("Z której butelki");
+                    int nrButelkiUzytkownikaPrzelacZ = scanner.nextInt();
+                    System.out.println("Do której butelki");
+                    int nrButelkiUzytkownikaPrzelacDo = scanner.nextInt();
+                    System.out.println("Ile chcesz przelać?");
+                    double volumePrzelac = scanner.nextDouble();
+                    int nrButelkiPrzelacZ = nrButelkiUzytkownikaPrzelacZ - 1;
+                    int nrButelkiPrzelacDo = nrButelkiUzytkownikaPrzelacDo - 1;
+                    butelka[nrButelkiPrzelacZ].przelej(volumePrzelac, butelka[nrButelkiPrzelacDo]);
+                    System.out.println("Przelano " + volumePrzelac + " z butelki numer " + nrButelkiUzytkownikaPrzelacZ + " do butelki numer " + nrButelkiUzytkownikaPrzelacDo);
+                    break;
+                default:
+                    System.out.println("Coś nie pykło");
+            }
+        } while (!funkcja.equals("KONIEC"));
     }
-
-
 }
